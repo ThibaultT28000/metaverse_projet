@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Arène Tenkaichi Budokai</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  </head>
+  <body>
+  <a-scene>
+    <!-- Textures et Assets -->
+    <a-assets>
+      <img id="grass" src="images/grass.jpeg">
+      <img id="sand" src="images/sand.jpg">
+      <img id="arena" src="images/arena.jpg">
+      <img id="jour" src="images/blue-sky.jpeg">
+      <img id="nuit" src="images/night.jpg">
+      <img id="poster" src="images/tenkaichi.jpeg">
+      <audio id="foule" src="son/cheering_crowd.mp3"></audio>
+      <a-asset-item id="madara" src="modeles/madara.glb"></a-asset-item>
+      <a-asset-item id="usopp" src="modeles/Usopp.glb"></a-asset-item>
+      <a-asset-item id="homer" src="modeles/homer_simpson.glb"></a-asset-item>
+      <a-asset-item id="peter" src="modeles/peter_griffin.glb"></a-asset-item>
+      <a-asset-item id="logement" src="modeles/logement.glb"></a-asset-item>
+      <a-asset-item id="batiment" src="modeles/batiment.glb"></a-asset-item>
+      <a-asset-item id="palmier" src="modeles/coconut_palm.glb"></a-asset-item>
+      <video id="fight_scene" src="video/fight_scene.mp4" autoplay muted loop="true" playsinline webkit-playsinline></video>
+    </a-assets>
+
+
+    <!-- Caméra -->
+    <a-entity id="rig" position="0 3 25">
+    <a-camera wasd-controls="acceleration:45"
+            cursor="rayOrigin: mouse"
+            raycaster="objects: .clickable"
+            wasd-controls="acceleration:45">
+    </a-camera>
+    </a-entity>
+
+    <!-- Bouton Mute / Unmute la foule -->
+    <a-entity position="9.5 1.9 10.4">
+      <a-box id="btn-foule"
+      class="clickable"
+      width="2" height="0.5" depth="0.2">
+    </a-box>
+    <a-text value="MUTE/UNMUTE"
+      color="black"
+      position="-0.8 0 0.1">
+    </a-text>
+    </a-entity>
+
+    <!-- Bouton Jour / Nuit -->
+      <a-entity position="-9.5 1.9 10.4">
+      <a-box id="btn-jn"
+      class="clickable"
+      width="2" height="0.5" depth="0.2">
+    </a-box>
+    <a-text value="JOUR/NUIT"
+      color="black"
+      position="-0.65 0 0.1">
+    </a-text>
+    </a-entity>
+
+    <!-- Lumières -->
+    <a-entity light="type: directional; intensity: 1" position="0 10 5"></a-entity>
+    <a-entity light="type: ambient; intensity: 0.5"></a-entity>
+
+    <!-- Sol en herbe -->
+    <a-plane position="0 -0.51 0"
+           rotation="-90 0 0"
+           width="150"
+           height="150"
+           material="src: #grass; repeat: 40 40;">
+    </a-plane>
+
+    <!-- Ciel -->
+    <a-sky id="sky" src="#jour" rotation="0 -90 0"></a-sky>
+
+      <!-- Arène -->
+      <a-entity position="0 0 0" rotation="0 0 0">
+        <!-- Sol -->
+        <a-box position="0 0 0" width="30" height="1" depth="30" color="#c2b280" material="src: #sand;"></a-box>
+
+        <!-- Plateau de combat -->
+        <a-box position="0 1.5 0" width="21" height="0.2" depth="21" color="#c0c0c0" material="src: #arena; repeat: 5 5;"></a-box>
+        <a-box position="0 0.75 0" width="21" height="1.25 " depth="21" color="#000000"></a-box>
+
+        <!-- Escaliers avant -->
+        <a-box position="0 0.5 10.5" width="6" height="1" depth="2" color="#b0a070"></a-box>
+
+          <!-- Murs avant gradin -->
+          <a-box position="15 1 0" rotation="0 90 0" width="30" height="3.5" depth="0.5" color="#C0C0C0"></a-box>
+          <a-box position="-15 1 0" rotation="0 90 0" width="30" height="3.5" depth="0.5" color="#C0C0C0"></a-box>
+          <a-box position="0 1 -15" width="30" height="3.5" depth="0.5" color="#C0C0C0"></a-box>
+
+          <!-- Gradins gauche -->
+          <a-box position="20 1 0" rotation="0 90 0" width="30" height="3.5" depth="0.5" color="#C0C0C0"></a-box>
+          <a-box position="20.5 1 0" rotation="0 90 0" width="30" height="4" depth="0.5" color="#C0C0C0"></a-box>
+          <a-box position="21 1 0" rotation="0 90 0" width="30" height="4.5" depth="0.5" color="#C0C0C0"></a-box>
+
+          <!-- Gradins droite -->
+          <a-box position="-20 1 0" rotation="0 90 0" width="30" height="3.5" depth="0.5" color="#C0C0C0"></a-box>
+          <a-box position="-20.5 1 0" rotation="0 90 0" width="30" height="4" depth="0.5" color="#C0C0C0"></a-box>
+          <a-box position="-21 1 0" rotation="0 90 0" width="30" height="4.5" depth="0.5" color="#C0C0C0"></a-box>
+
+          <!-- Pancarte avec image-->
+          <a-box position="0 4.4 -15"width="4.2" height="0.1" depth="0.1" color="#654321"></a-box>
+          <a-box position="0 2.8 -15" width="4.2" height="0.1" depth="0.1" color="#654321"></a-box>
+          <a-box position="-2.05 2.8 -15" width="0.1" height="3.2" depth="0.1" color="#654321"></a-box>
+          <a-box position="2.05 2.8 -15" width="0.1" height="3.2" depth="0.1" color="#654321"></a-box>
+          <a-box position="0 3.6 -15" width="4.0" height="1.4" depth="0.1" material="src:#poster"></a-box>
+          <a-box position="0 3.6 -15.05" width="4.0" height="1.4" depth="0.1" color="#654321"></a-box>
+      
+          <!-- Pancarte avec vidéo-->
+          <a-box position="0 6 -15.05" width="4.2" height="3.2" depth="0.1" color="#654321"></a-box>
+          <a-video id="video_plane" src="#fight_scene" class="clickable" width="4.0" height="3" depth="0.1" position="0 6 -14.9" material="shader: flat;"></a-video>
+
+
+      </a-entity>
+      
+      <!-- Personnages -->
+
+      <a-entity gltf-model="#madara"
+          position="0 1.6 -5"
+          rotation="0 180 0"
+          scale="1 1 1">
+      </a-entity>
+
+      <a-entity gltf-model="#usopp"
+          position="0 1.6 5"
+          rotation="0 180 0"
+          scale="1.5 1.5 1.5">
+      </a-entity>
+
+      <a-entity gltf-model="#homer"
+          position="20 2.75 0"
+          rotation="0 -90 0"
+          scale="0.75 0.75 0.75">
+      </a-entity>
+
+      <a-entity gltf-model="#peter"
+          position="-20 2.75 0"
+          rotation="0 90 0"
+          scale="0.75 0.75 0.75">
+      </a-entity>
+
+      <!-- Props et bâtiments -->
+
+      <a-entity gltf-model="#batiment"
+          position="20 -1 -45"
+          scale="1 1 1">
+      </a-entity>
+
+      <a-entity gltf-model="#logement"
+          position="0 -0.5 -50"
+          rotation="0 -90 0"
+          scale="2.5 2.5 2.5">
+      </a-entity>
+
+      <a-entity gltf-model="#palmier"
+          position="-15 -0.5 -25"
+          rotation="0 0 0"
+          scale="1.5 1.5 1.5">
+      </a-entity>
+
+      <a-entity gltf-model="#palmier"
+          position="0 -0.5 -25"
+          rotation="0 0 0"
+          scale="1.5 1.5 1.5">
+      </a-entity>
+
+      <a-entity gltf-model="#palmier"
+          position="15 -0.5 -25"
+          rotation="0 0 0"
+          scale="1.5 1.5 1.5">
+      </a-entity>
+
+    </a-scene>
+
+    <!-- Boutons -->
+    <script src="js/bouton-foule.js"></script>
+    <script src="js/bouton-jn.js"></script>
+    <script src="js/bouton-video.js"></script>
+
+  </body>
+</html>
