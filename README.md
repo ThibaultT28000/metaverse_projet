@@ -29,6 +29,8 @@ SON D'AMBIANCE
 Un son de foule est intégré à la scène et se déclenche automatiquement au chargement.
 Un bouton Mute / Unmute permet à l’utilisateur d’activer ou de couper l’ambiance sonore à tout moment.
 
+Assurez vous de cliquer jusqu'à ce que le bouton devienne rouge.
+
 VIDEO
 
 Une vidéo est affichée sur un panneau dans la scène à l’aide de <a-video>.
